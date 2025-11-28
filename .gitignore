@@ -1,0 +1,27 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when run with the
+# -o option
+coverage.out
+
+
+# Environment variables
+.env
+.envrc
+*.env
+
+# IDE/Editor specific
+.idea/
+.vscode/
+*.swp
+*~
+ 
+*.txt
