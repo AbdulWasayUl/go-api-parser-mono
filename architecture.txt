@@ -1,0 +1,33 @@
+go app with 4 services that fetch data from apis
+parsers for each and db for each
+
+use workers, channels, go routines and locking
+
+weatherapi -- use city name
+openaq -- use country id
+worldtimeapi -- use zone name
+restcountries -- use country name
+
+root
+  cmd/app
+    - main.go
+  services
+    weather
+      fetch
+      parse
+      store
+    aqi
+    time
+    country
+  internal
+    config
+    db
+    logger (can also define in main)
+    scheduler
+    workerpool
+    channels
+  models
+  DockerFile
+  docker-compose.yml
+  .gitignore
+  .env
