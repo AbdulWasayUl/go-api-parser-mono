@@ -1,7 +1,10 @@
 go app with 4 services that fetch data from apis
 parsers for each and db for each
 
-use workers, channels, go routines and locking
+use workers for concurrency in fetching (most relevant here), processing and storing
+use scheduler to run services at specific times (cron jobs)
+use channels for pipline
+go routines, locking (db)
 
 weatherapi -- use city name
 openaq -- use country id

@@ -1,0 +1,18 @@
+[
+  {
+    "country_code": "AF",
+    "timezone": "Asia/Kabul"
+  },
+  {
+    "country_code": "AL",
+    "timezone": "Europe/Tirana"
+  },
+  {
+    "country_code": "DZ",
+    "timezone": "Africa/Algiers"
+  },
+  {
+    "country_code": "AD",
+    "timezone": "Europe/Andorra"
+  }
+]
