@@ -1,9 +1,11 @@
 # Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+*.exe       # Windows
+*.exe~      # Windows backup
+*.dll       # Windows DLLs
+*.so        # Linux shared object
+*.dylib     # macOS shared library
+*.test      # Test binary
+*.out       # Go build output
 bin/
 # Test binary, built with `go test -c`
 *.test
