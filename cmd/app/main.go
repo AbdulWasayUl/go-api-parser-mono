@@ -12,6 +12,9 @@ import (
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/logger"
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/scheduler"
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/workpool"
+	"github.com/AbdulWasayUl/go-api-parser-mono/services/aqi"
+	"github.com/AbdulWasayUl/go-api-parser-mono/services/country"
+	worldtime "github.com/AbdulWasayUl/go-api-parser-mono/services/time"
 	"github.com/AbdulWasayUl/go-api-parser-mono/services/weather"
 )
 
@@ -45,8 +48,12 @@ func main() {
 	wp.Start(ctx)
 
 	weatherSvc := weather.NewService(cfg)
+	timeSvc := worldtime.NewService(cfg)
+	countrySvc := country.NewService(cfg)
+	aqiSvc := aqi.NewService(cfg)
 
-	services := []scheduler.SchedulableService{weatherSvc}
+	services := []scheduler.SchedulableService{weatherSvc, timeSvc, countrySvc, aqiSvc}
+	// services := []scheduler.SchedulableService{aqiSvc}
 
 	sch, err := scheduler.New()
 	if err != nil {

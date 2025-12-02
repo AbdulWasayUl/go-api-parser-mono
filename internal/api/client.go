@@ -24,32 +24,38 @@ func NewClient(rl models.RateLimitSettings) *Client {
 	ticker := time.NewTicker(interval)
 
 	return &Client{
-		httpClient: &http.Client{Timeout: 10 * time.Second},
+		httpClient: &http.Client{Timeout: 20 * time.Second},
 		rateLimit:  rl,
 		limiter:    ticker,
 	}
 }
 
 func (c *Client) Do(ctx context.Context, url string, headers map[string]string) ([]byte, error) {
-
 	<-c.limiter.C
 
-	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-
-	for key, value := range headers {
-		req.Header.Set(key, value)
-	}
-
-	const maxRetries = 3
+	const maxRetries = 10
 	for i := 0; i < maxRetries; i++ {
+		// Create a fresh request for each attempt
+		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+		if err != nil {
+			return nil, fmt.Errorf("failed to create request: %w", err)
+		}
+
+		for key, value := range headers {
+			req.Header.Set(key, value)
+		}
+
 		logger.Info("Making request to %s (attempt %d)", url, i+1)
 		resp, err := c.httpClient.Do(req)
 		if err != nil {
 			logger.Error("HTTP request failed (attempt %d): %v", i+1, err)
-			time.Sleep(2 * time.Second)
+
+			// Check if context is cancelled - if so, don't retry
+			if ctx.Err() != nil {
+				return nil, fmt.Errorf("context cancelled: %w", ctx.Err())
+			}
+
+			time.Sleep(time.Duration(2*i) * time.Second)
 			continue
 		}
 		defer resp.Body.Close()

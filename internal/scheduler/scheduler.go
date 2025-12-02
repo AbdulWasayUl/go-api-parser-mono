@@ -37,12 +37,12 @@ func (s *Scheduler) StartJob(ctx context.Context, client *mongo.Client, chans *c
 	// if err != nil {
 	// 	return err
 	// }
-	_, err := s.Cron.Every(1).Minute().Do(func() {
-		s.runAllJobs(ctx, client, chans, services)
-	})
-	if err != nil {
-		logger.Error("Failed to schedule job: %v", err)
-	}
+	// _, err := s.Cron.Every(1).Minute().Do(func() {
+	// 	s.runAllJobs(ctx, client, chans, services)
+	// })
+	// if err != nil {
+	// 	logger.Error("Failed to schedule job: %v", err)
+	// }
 
 	s.Cron.StartAsync()
 	return nil

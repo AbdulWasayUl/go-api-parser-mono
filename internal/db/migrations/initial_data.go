@@ -3,6 +3,7 @@ package migrations
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -40,26 +41,44 @@ func loadJSONData(fileName string) ([]interface{}, error) {
 	return documents, nil
 }
 
-func runMigrationHelper(ctx context.Context, client *mongo.Client, dbName, filename string) error {
-	db := client.Database(dbName)
-	coll := db.Collection(fetchParamCollection)
-
-	// Create collection, ignore if it already exists
-	if err := db.CreateCollection(ctx, dailyDataCollection); err != nil {
-		if !mongo.IsDuplicateKeyError(err) && err.Error() != "namespace already exists" {
-			return fmt.Errorf("failed to create daily data collection: %w", err)
+func createCollectionIfNotExists(ctx context.Context, db *mongo.Database, name string) error {
+	if err := db.CreateCollection(ctx, name); err != nil {
+		var cmdErr mongo.CommandError
+		if errors.As(err, &cmdErr) {
+			if cmdErr.Code != 48 { // 48 = NamespaceExists
+				return fmt.Errorf("failed to create collection %s: %w", name, err)
+			}
+			// Collection already exists → ignore
+		} else {
+			return fmt.Errorf("failed to create collection %s: %w", name, err)
 		}
 	}
+	return nil
+}
 
-	// Load data from JSON file
-	data, err := loadJSONData(filename)
-	if err != nil {
-		return fmt.Errorf("failed to load JSON data from %s: %w", filename, err)
+func runMigrationHelper(ctx context.Context, client *mongo.Client, dbName, filename string) error {
+	db := client.Database(dbName)
+
+	// Create both collections safely
+	if err := createCollectionIfNotExists(ctx, db, fetchParamCollection); err != nil {
+		return err
+	}
+	if err := createCollectionIfNotExists(ctx, db, dailyDataCollection); err != nil {
+		return err
 	}
 
-	// Insert data into collection
-	if _, err := coll.InsertMany(ctx, data); err != nil {
-		return fmt.Errorf("failed to insert data for %s: %w", dbName, err)
+	// Insert JSON data into fetch_params
+	coll := db.Collection(fetchParamCollection)
+
+	data, err := loadJSONData(filename)
+	if err != nil {
+		return fmt.Errorf("failed to load JSON: %w", err)
+	}
+
+	if len(data) > 0 {
+		if _, err := coll.InsertMany(ctx, data); err != nil {
+			return fmt.Errorf("failed to insert data: %w", err)
+		}
 	}
 
 	return nil
