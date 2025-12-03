@@ -938,5 +938,737 @@
   {
     "country_code": "MX",
     "timezone": "America/Bahia_Banderas"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Cancun"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Chihuahua"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Ciudad_Juarez"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Hermosillo"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Matamoros"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Mazatlan"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Merida"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Mexico_City"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Monterrey"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Ojinaga"
+  },
+  {
+    "country_code": "MX",
+    "timezone": "America/Tijuana"
+  },
+  {
+    "country_code": "FM",
+    "timezone": "Pacific/Chuuk"
+  },
+  {
+    "country_code": "FM",
+    "timezone": "Pacific/Kosrae"
+  },
+  {
+    "country_code": "FM",
+    "timezone": "Pacific/Pohnpei"
+  },
+  {
+    "country_code": "MD",
+    "timezone": "Europe/Chisinau"
+  },
+  {
+    "country_code": "MC",
+    "timezone": "Europe/Monaco"
+  },
+  {
+    "country_code": "MN",
+    "timezone": "Asia/Hovd"
+  },
+  {
+    "country_code": "MN",
+    "timezone": "Asia/Ulaanbaatar"
+  },
+  {
+    "country_code": "ME",
+    "timezone": "Europe/Podgorica"
+  },
+  {
+    "country_code": "MS",
+    "timezone": "America/Montserrat"
+  },
+  {
+    "country_code": "MA",
+    "timezone": "Africa/Casablanca"
+  },
+  {
+    "country_code": "MA",
+    "timezone": "Africa/El_Aaiun"
+  },
+  {
+    "country_code": "MZ",
+    "timezone": "Africa/Maputo"
+  },
+  {
+    "country_code": "MM",
+    "timezone": "Asia/Yangon"
+  },
+  {
+    "country_code": "NA",
+    "timezone": "Africa/Windhoek"
+  },
+  {
+    "country_code": "NR",
+    "timezone": "Pacific/Nauru"
+  },
+  {
+    "country_code": "NP",
+    "timezone": "Asia/Kathmandu"
+  },
+  {
+    "country_code": "NL",
+    "timezone": "Europe/Amsterdam"
+  },
+  {
+    "country_code": "NC",
+    "timezone": "Pacific/Noumea"
+  },
+  {
+    "country_code": "NZ",
+    "timezone": "Pacific/Auckland"
+  },
+  {
+    "country_code": "NZ",
+    "timezone": "Pacific/Chatham"
+  },
+  {
+    "country_code": "NI",
+    "timezone": "America/Managua"
+  },
+  {
+    "country_code": "NE",
+    "timezone": "Africa/Niamey"
+  },
+  {
+    "country_code": "NG",
+    "timezone": "Africa/Lagos"
+  },
+  {
+    "country_code": "NU",
+    "timezone": "Pacific/Niue"
+  },
+  {
+    "country_code": "NF",
+    "timezone": "Pacific/Norfolk"
+  },
+  {
+    "country_code": "MP",
+    "timezone": "Pacific/Saipan"
+  },
+  {
+    "country_code": "NO",
+    "timezone": "Europe/Oslo"
+  },
+  {
+    "country_code": "OM",
+    "timezone": "Asia/Muscat"
+  },
+  {
+    "country_code": "PK",
+    "timezone": "Asia/Karachi"
+  },
+  {
+    "country_code": "PW",
+    "timezone": "Pacific/Palau"
+  },
+  {
+    "country_code": "PS",
+    "timezone": "Asia/Gaza"
+  },
+  {
+    "country_code": "PS",
+    "timezone": "Asia/Hebron"
+  },
+  {
+    "country_code": "PA",
+    "timezone": "America/Panama"
+  },
+  {
+    "country_code": "PG",
+    "timezone": "Pacific/Bougainville"
+  },
+  {
+    "country_code": "PG",
+    "timezone": "Pacific/Port_Moresby"
+  },
+  {
+    "country_code": "PY",
+    "timezone": "America/Asuncion"
+  },
+  {
+    "country_code": "PE",
+    "timezone": "America/Lima"
+  },
+  {
+    "country_code": "PH",
+    "timezone": "Asia/Manila"
+  },
+  {
+    "country_code": "PN",
+    "timezone": "Pacific/Pitcairn"
+  },
+  {
+    "country_code": "PL",
+    "timezone": "Europe/Warsaw"
+  },
+  {
+    "country_code": "PT",
+    "timezone": "Atlantic/Azores"
+  },
+  {
+    "country_code": "PT",
+    "timezone": "Atlantic/Madeira"
+  },
+  {
+    "country_code": "PT",
+    "timezone": "Europe/Lisbon"
+  },
+  {
+    "country_code": "PR",
+    "timezone": "America/Puerto_Rico"
+  },
+  {
+    "country_code": "QA",
+    "timezone": "Asia/Qatar"
+  },
+  {
+    "country_code": "RO",
+    "timezone": "Europe/Bucharest"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Anadyr"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Barnaul"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Chita"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Irkutsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Kamchatka"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Khandyga"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Krasnoyarsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Magadan"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Novokuznetsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Novosibirsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Omsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Sakhalin"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Srednekolymsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Tomsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Ust-Nera"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Vladivostok"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Yakutsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Asia/Yekaterinburg"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Astrakhan"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Kaliningrad"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Kirov"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Moscow"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Samara"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Saratov"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Ulyanovsk"
+  },
+  {
+    "country_code": "RU",
+    "timezone": "Europe/Volgograd"
+  },
+  {
+    "country_code": "RW",
+    "timezone": "Africa/Kigali"
+  },
+  {
+    "country_code": "RE",
+    "timezone": "Indian/Reunion"
+  },
+  {
+    "country_code": "BL",
+    "timezone": "America/St_Barthelemy"
+  },
+  {
+    "country_code": "SH",
+    "timezone": "Atlantic/St_Helena"
+  },
+  {
+    "country_code": "KN",
+    "timezone": "America/St_Kitts"
+  },
+  {
+    "country_code": "LC",
+    "timezone": "America/St_Lucia"
+  },
+  {
+    "country_code": "MF",
+    "timezone": "America/Marigot"
+  },
+  {
+    "country_code": "PM",
+    "timezone": "America/Miquelon"
+  },
+  {
+    "country_code": "VC",
+    "timezone": "America/St_Vincent"
+  },
+  {
+    "country_code": "WS",
+    "timezone": "Pacific/Apia"
+  },
+  {
+    "country_code": "SM",
+    "timezone": "Europe/San_Marino"
+  },
+  {
+    "country_code": "ST",
+    "timezone": "Africa/Sao_Tome"
+  },
+  {
+    "country_code": "SA",
+    "timezone": "Asia/Riyadh"
+  },
+  {
+    "country_code": "SN",
+    "timezone": "Africa/Dakar"
+  },
+  {
+    "country_code": "RS",
+    "timezone": "Europe/Belgrade"
+  },
+  {
+    "country_code": "SC",
+    "timezone": "Indian/Mahe"
+  },
+  {
+    "country_code": "SL",
+    "timezone": "Africa/Freetown"
+  },
+  {
+    "country_code": "SG",
+    "timezone": "Asia/Singapore"
+  },
+  {
+    "country_code": "SX",
+    "timezone": "America/Lower_Princes"
+  },
+  {
+    "country_code": "SK",
+    "timezone": "Europe/Bratislava"
+  },
+  {
+    "country_code": "SI",
+    "timezone": "Europe/Ljubljana"
+  },
+  {
+    "country_code": "SB",
+    "timezone": "Pacific/Guadalcanal"
+  },
+  {
+    "country_code": "SO",
+    "timezone": "Africa/Mogadishu"
+  },
+  {
+    "country_code": "ZA",
+    "timezone": "Africa/Johannesburg"
+  },
+  {
+    "country_code": "GS",
+    "timezone": "Atlantic/South_Georgia"
+  },
+  {
+    "country_code": "SS",
+    "timezone": "Africa/Juba"
+  },
+  {
+    "country_code": "ES",
+    "timezone": "Africa/Ceuta"
+  },
+  {
+    "country_code": "ES",
+    "timezone": "Atlantic/Canary"
+  },
+  {
+    "country_code": "ES",
+    "timezone": "Europe/Madrid"
+  },
+  {
+    "country_code": "LK",
+    "timezone": "Asia/Colombo"
+  },
+  {
+    "country_code": "SD",
+    "timezone": "Africa/Khartoum"
+  },
+  {
+    "country_code": "SR",
+    "timezone": "America/Paramaribo"
+  },
+  {
+    "country_code": "SJ",
+    "timezone": "Arctic/Longyearbyen"
+  },
+  {
+    "country_code": "SZ",
+    "timezone": "Africa/Mbabane"
+  },
+  {
+    "country_code": "SE",
+    "timezone": "Europe/Stockholm"
+  },
+  {
+    "country_code": "CH",
+    "timezone": "Europe/Zurich"
+  },
+  {
+    "country_code": "SY",
+    "timezone": "Asia/Damascus"
+  },
+  {
+    "country_code": "TW",
+    "timezone": "Asia/Taipei"
+  },
+  {
+    "country_code": "TJ",
+    "timezone": "Asia/Dushanbe"
+  },
+  {
+    "country_code": "TZ",
+    "timezone": "Africa/Dar_es_Salaam"
+  },
+  {
+    "country_code": "TH",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "country_code": "TL",
+    "timezone": "Asia/Dili"
+  },
+  {
+    "country_code": "TG",
+    "timezone": "Africa/Lome"
+  },
+  {
+    "country_code": "TK",
+    "timezone": "Pacific/Fakaofo"
+  },
+  {
+    "country_code": "TO",
+    "timezone": "Pacific/Tongatapu"
+  },
+  {
+    "country_code": "TT",
+    "timezone": "America/Port_of_Spain"
+  },
+  {
+    "country_code": "TN",
+    "timezone": "Africa/Tunis"
+  },
+  {
+    "country_code": "TR",
+    "timezone": "Europe/Istanbul"
+  },
+  {
+    "country_code": "TM",
+    "timezone": "Asia/Ashgabat"
+  },
+  {
+    "country_code": "TC",
+    "timezone": "America/Grand_Turk"
+  },
+  {
+    "country_code": "TV",
+    "timezone": "Pacific/Funafuti"
+  },
+  {
+    "country_code": "UG",
+    "timezone": "Africa/Kampala"
+  },
+  {
+    "country_code": "UA",
+    "timezone": "Europe/Kyiv"
+  },
+  {
+    "country_code": "UA",
+    "timezone": "Europe/Simferopol"
+  },
+  {
+    "country_code": "AE",
+    "timezone": "Asia/Dubai"
+  },
+  {
+    "country_code": "GB",
+    "timezone": "Europe/London"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Adak"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Anchorage"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Boise"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Chicago"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Denver"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Detroit"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Indianapolis"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Knox"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Marengo"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Petersburg"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Tell_City"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Vevay"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Vincennes"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Indiana/Winamac"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Juneau"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Kentucky/Louisville"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Kentucky/Monticello"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Menominee"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Metlakatla"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/New_York"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Nome"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/North_Dakota/Beulah"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/North_Dakota/Center"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/North_Dakota/New_Salem"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Phoenix"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Sitka"
+  },
+  {
+    "country_code": "US",
+    "timezone": "America/Yakutat"
+  },
+  {
+    "country_code": "US",
+    "timezone": "Pacific/Honolulu"
+  },
+  {
+    "country_code": "UM",
+    "timezone": "Pacific/Midway"
+  },
+  {
+    "country_code": "UM",
+    "timezone": "Pacific/Wake"
+  },
+  {
+    "country_code": "UY",
+    "timezone": "America/Montevideo"
+  },
+  {
+    "country_code": "UZ",
+    "timezone": "Asia/Samarkand"
+  },
+  {
+    "country_code": "UZ",
+    "timezone": "Asia/Tashkent"
+  },
+  {
+    "country_code": "VU",
+    "timezone": "Pacific/Efate"
+  },
+  {
+    "country_code": "VE",
+    "timezone": "America/Caracas"
+  },
+  {
+    "country_code": "VN",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  {
+    "country_code": "VG",
+    "timezone": "America/Tortola"
+  },
+  {
+    "country_code": "VI",
+    "timezone": "America/St_Thomas"
+  },
+  {
+    "country_code": "WF",
+    "timezone": "Pacific/Wallis"
+  },
+  {
+    "country_code": "YE",
+    "timezone": "Asia/Aden"
+  },
+  {
+    "country_code": "ZM",
+    "timezone": "Africa/Lusaka"
+  },
+  {
+    "country_code": "ZW",
+    "timezone": "Africa/Harare"
+  },
+  {
+    "country_code": "AX",
+    "timezone": "Europe/Mariehamn"
   }
 ]

@@ -7,13 +7,12 @@ import (
 
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/channels"
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/logger"
-	"github.com/AbdulWasayUl/go-api-parser-mono/models"
 	"github.com/go-co-op/gocron"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type SchedulableService interface {
-	RunBatchJob(ctx context.Context, client interface{}, ch chan<- models.DataRequest) error
+	RunBatchJob(ctx context.Context, client interface{}, chans *channels.Channels) error
 }
 
 type Scheduler struct {
@@ -29,7 +28,7 @@ func New() (*Scheduler, error) {
 	}, nil
 }
 
-func (s *Scheduler) StartJob(ctx context.Context, client *mongo.Client, chans *channels.Channels, services []SchedulableService) error {
+func (s *Scheduler) StartJob(ctx context.Context, client *mongo.Client, chanList []*channels.Channels, services []SchedulableService) error {
 
 	// _, err := s.Cron.Every(1).Day().At("01:00").Do(func() {
 	// 	s.runAllJobs(ctx, client, chans, services)
@@ -48,25 +47,28 @@ func (s *Scheduler) StartJob(ctx context.Context, client *mongo.Client, chans *c
 	return nil
 }
 
-func (s *Scheduler) runAllJobs(ctx context.Context, client *mongo.Client, chans *channels.Channels, services []SchedulableService) {
+func (s *Scheduler) runAllJobs(ctx context.Context, client *mongo.Client, chanList []*channels.Channels, services []SchedulableService) {
 	logger.Info("--- Daily Fetch Job Started ---")
 	defer logger.Info("--- Daily Fetch Job Finished ---")
 
-	for _, service := range services {
-		err := service.RunBatchJob(ctx, client, chans.DataRequest)
+	for i, service := range services {
+		currCh := chanList[i]
+		err := service.RunBatchJob(ctx, client, currCh)
 		if err != nil {
 			logger.Error("Error running batch job for service: %v", err)
 		}
 	}
 
 	logger.Info("Waiting for all submitted jobs to complete...")
-	chans.WG.Wait()
+	for _, ch := range chanList {
+		ch.WG.Wait()
+	}
 	logger.Info("All jobs completed successfully.")
 }
 
-func (s *Scheduler) RunImmediateJob(ctx context.Context, client *mongo.Client, chans *channels.Channels, services []SchedulableService) {
+func (s *Scheduler) RunImmediateJob(ctx context.Context, client *mongo.Client, chanList []*channels.Channels, services []SchedulableService) {
 	logger.Info("--- Immediate Fetch Job Started ---")
 	defer logger.Info("--- Immediate Fetch Job Finished ---")
 
-	s.runAllJobs(ctx, client, chans, services)
+	s.runAllJobs(ctx, client, chanList, services)
 }

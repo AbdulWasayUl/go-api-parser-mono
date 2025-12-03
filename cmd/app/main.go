@@ -42,10 +42,23 @@ func main() {
 		log.Fatalf("Failed to run migrations: %v", err)
 	}
 
-	chans := channels.New()
+	// chans := channels.New()
 
-	wp := workpool.New(chans, 5)
-	wp.Start(ctx)
+	// wp := workpool.New(chans, 30)
+	// wp.Start(ctx)
+	// Create 1 channels + 1 workerpool for each service
+	chanList := make([]*channels.Channels, 0)
+	wpList := make([]*workpool.WorkerPool, 0)
+
+	// One per service
+	for i := 0; i < 4; i++ {
+		ch := channels.New()
+		chanList = append(chanList, ch)
+
+		wp := workpool.New(ch, 10)
+		wp.Start(ctx)
+		wpList = append(wpList, wp)
+	}
 
 	weatherSvc := weather.NewService(cfg)
 	timeSvc := worldtime.NewService(cfg)
@@ -60,20 +73,29 @@ func main() {
 		log.Fatalf("Failed to initialize scheduler: %v", err)
 	}
 
-	if err := sch.StartJob(ctx, client, chans, services); err != nil {
+	if err := sch.StartJob(ctx, client, chanList, services); err != nil {
 		log.Fatalf("Failed to start scheduler job: %v", err)
 	}
 
 	logger.Info("Executing immediate startup data fetch and store.")
-	sch.RunImmediateJob(ctx, client, chans, services)
+	sch.RunImmediateJob(ctx, client, chanList, services)
 
 	<-quit
 	logger.Info("Received interrupt signal. Shutting down gracefully...")
 
 	sch.Cron.Stop()
-	wp.Stop()
 
 	logger.Info("Waiting for pending worker jobs to finish...")
-	chans.WG.Wait()
+
+	// Stop all workerpools
+	for _, wp := range wpList {
+		wp.Stop()
+	}
+
+	// Wait for remaining work
+	for _, ch := range chanList {
+		ch.WG.Wait()
+	}
+
 	logger.Info("All worker jobs finished. Shutdown complete.")
 }

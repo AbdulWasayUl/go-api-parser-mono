@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/api"
+	"github.com/AbdulWasayUl/go-api-parser-mono/internal/channels"
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/config"
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/db"
 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/logger"
@@ -115,7 +116,7 @@ func (s *Service) StoreData(ctx context.Context, db interface{}, data interface{
 	return nil
 }
 
-func (s *Service) RunBatchJob(ctx context.Context, client interface{}, out chan<- models.DataRequest) error {
+func (s *Service) RunBatchJob(ctx context.Context, client interface{}, chans *channels.Channels) error {
 
 	logger.Info("[%s] Starting batch job...", s.DBName)
 
@@ -153,7 +154,7 @@ func (s *Service) RunBatchJob(ctx context.Context, client interface{}, out chan<
 				return s.StoreData(ctx, client, data)
 			},
 		}
-		out <- dataReq
+		chans.DataRequest <- dataReq
 	}
 
 	return nil
