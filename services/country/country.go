@@ -17,12 +17,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const (
-	baseURL              = "https://restcountries.com/v3.1/alpha"
-	fetchParamCollection = "fetch_params"
-	dailyDataCollection  = "daily_data"
-)
-
 type Service struct {
 	Config *config.Config
 	Client *api.Client
@@ -46,7 +40,7 @@ func NewService(cfg *config.Config) *Service {
 
 func (s *Service) FetchData(ctx context.Context, id string) ([]byte, error) {
 	countryCode := url.QueryEscape(id)
-	url := fmt.Sprintf("%s/%s", baseURL, countryCode)
+	url := fmt.Sprintf("%s/%s", s.Config.RestCountriesAPIBaseURL, countryCode)
 	return s.Client.Do(ctx, url, nil)
 }
 
@@ -111,7 +105,7 @@ func (s *Service) StoreData(ctx context.Context, db interface{}, data interface{
 		return fmt.Errorf("expected CountryData, got %T", data)
 	}
 
-	coll := client.Database(s.DBName).Collection(dailyDataCollection)
+	coll := client.Database(s.DBName).Collection(s.Config.CollectionDailyData)
 	_, err := coll.InsertOne(ctx, countryData)
 	if err != nil {
 		return fmt.Errorf("failed to store country data: %w", err)
@@ -129,7 +123,7 @@ func (s *Service) RunBatchJob(ctx context.Context, client interface{}, chans *ch
 		return fmt.Errorf("expected *mongo.Client, got %T", client)
 	}
 
-	params, err := db.GetFetchParams(ctx, client, s.DBName, fetchParamCollection)
+	params, err := db.GetFetchParams(ctx, client, s.DBName, s.Config.CollectionFetchParams)
 	if err != nil {
 		logger.Error("[%s] Failed to get fetch parameters: %v", s.DBName, err)
 		return err

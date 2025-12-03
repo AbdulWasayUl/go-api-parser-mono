@@ -30,12 +30,12 @@ func New() (*Scheduler, error) {
 
 func (s *Scheduler) StartJob(ctx context.Context, client *mongo.Client, chanList []*channels.Channels, services []SchedulableService) error {
 
-	// _, err := s.Cron.Every(1).Day().At("01:00").Do(func() {
-	// 	s.runAllJobs(ctx, client, chans, services)
-	// })
-	// if err != nil {
-	// 	return err
-	// }
+	_, err := s.Cron.Every(1).Day().At("07:30").Do(func() {
+		s.runAllJobs(ctx, client, chanList, services)
+	})
+	if err != nil {
+		return err
+	}
 	// _, err := s.Cron.Every(1).Minute().Do(func() {
 	// 	s.runAllJobs(ctx, client, chans, services)
 	// })
