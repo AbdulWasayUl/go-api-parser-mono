@@ -32,7 +32,7 @@ type Service struct {
 
 func NewService(cfg *config.Config) *Service {
 	rlSettings := models.RateLimitSettings{
-		MaxRequests: 20,
+		MaxRequests: 40,
 		PerDuration: time.Minute,
 	}
 	client := api.NewClient(rlSettings)

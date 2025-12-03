@@ -36,7 +36,7 @@ func (wp *WorkerPool) worker(ctx context.Context, id int) {
 		func(req models.DataRequest) {
 			defer wp.Channels.WG.Done()
 
-			opCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+			opCtx, cancel := context.WithTimeout(context.Background(), 300*time.Second)
 			defer cancel()
 
 			logger.Info("[%s] Worker %d processing request for ID: %s", req.Service, id, req.ID)

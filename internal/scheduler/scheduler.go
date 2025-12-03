@@ -48,8 +48,12 @@ func (s *Scheduler) StartJob(ctx context.Context, client *mongo.Client, chanList
 }
 
 func (s *Scheduler) runAllJobs(ctx context.Context, client *mongo.Client, chanList []*channels.Channels, services []SchedulableService) {
-	logger.Info("--- Daily Fetch Job Started ---")
-	defer logger.Info("--- Daily Fetch Job Finished ---")
+	startTime := time.Now()
+	logger.Info("--- Fetch Job Started ---")
+	defer func() {
+		elapsed := time.Since(startTime)
+		logger.Info("--- Fetch Job Finished --- (Total time: %v)", elapsed)
+	}()
 
 	for i, service := range services {
 		currCh := chanList[i]

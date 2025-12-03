@@ -55,7 +55,7 @@ func main() {
 		ch := channels.New()
 		chanList = append(chanList, ch)
 
-		wp := workpool.New(ch, 10)
+		wp := workpool.New(ch, 5)
 		wp.Start(ctx)
 		wpList = append(wpList, wp)
 	}

@@ -33,7 +33,7 @@ type Service struct {
 func NewService(cfg *config.Config) *Service {
 
 	rlSettings := models.RateLimitSettings{
-		MaxRequests: 20,
+		MaxRequests: 30,
 		PerDuration: time.Minute,
 	}
 	client := api.NewClient(rlSettings)
@@ -98,7 +98,7 @@ func (s *Service) StoreData(ctx context.Context, db interface{}, data interface{
 		return fmt.Errorf("invalid data type for storing weather data")
 	}
 
-	coll := client.Database(s.DBName).Collection("daily_data")
+	coll := client.Database(s.DBName).Collection(dailyDataCollection)
 	_, err := coll.InsertOne(ctx, weatherData)
 
 	return err
