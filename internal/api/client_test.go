@@ -184,14 +184,3 @@ func TestClient_Do_RateLimit(t *testing.T) {
 		t.Fatalf("rate limiting not enforced")
 	}
 }
-
-// // Test backoff sleeps without actually sleeping long
-// func TestBackoff(t *testing.T) {
-// 	for i := 0; i < 5; i++ {
-// 		start := time.Now()
-// 		api.backoff(i) // assume Backoff exported temporarily for testing
-// 		if time.Since(start) < 1*time.Second && i > 0 {
-// 			t.Logf("backoff ran (ok) for attempt %d", i)
-// 		}
-// 	}
-// }

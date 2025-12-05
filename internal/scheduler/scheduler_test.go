@@ -1,103 +1,132 @@
-package scheduler_test
+package scheduler
 
-// import (
-// 	"context"
-// 	"errors"
-// 	"testing"
-// 	"time"
+import (
+	"context"
+	"fmt"
+	"sync"
+	"testing"
+	"time"
 
-// 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/channels"
-// 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/logger"
-// 	"github.com/AbdulWasayUl/go-api-parser-mono/internal/scheduler"
-// )
+	"github.com/AbdulWasayUl/go-api-parser-mono/internal/channels"
+	"github.com/AbdulWasayUl/go-api-parser-mono/models"
+	"github.com/go-co-op/gocron"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
 
-// // mock service implementing SchedulableService
-// type mockService struct {
-// 	called bool
-// 	err    error
-// }
+// fakeService implements SchedulableService for testing.
+type fakeService struct {
+	name      string
+	callCount int
+	mu        *sync.Mutex
+	returnErr bool
+}
 
-// func (m *mockService) RunBatchJob(ctx context.Context, client interface{}, chans *channels.Channels) error {
-// 	m.called = true
-// 	// simulate sending a job to channel
-// 	chans.DataRequest <- struct{}{} // empty struct for test
-// 	chans.WG.Add(1)
-// 	chans.WG.Done()
-// 	return m.err
-// }
+func (f *fakeService) RunBatchJob(ctx context.Context, client interface{}, chans *channels.Channels) error {
+	if f.mu != nil {
+		f.mu.Lock()
+		f.callCount++
+		f.mu.Unlock()
+	}
 
-// func TestScheduler_RunImmediateJob_Table(t *testing.T) {
-// 	logger.Init() // optional: enable logging to stdout during tests
+	// Simulate the service adding and completing work so the scheduler's wait doesn't block.
+	if chans != nil && chans.WG != nil {
+		chans.WG.Add(1)
+		go func() {
+			// simulate small work
+			time.Sleep(5 * time.Millisecond)
+			chans.WG.Done()
+		}()
+	}
 
-// 	tests := []struct {
-// 		name          string
-// 		serviceErr    error
-// 		expectedError bool
-// 	}{
-// 		{"SingleService_NoError", nil, false},
-// 		{"SingleService_WithError", errors.New("job failed"), false}, // error is logged, not returned
-// 	}
+	if f.returnErr {
+		return fmt.Errorf("forced error")
+	}
+	return nil
+}
 
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			ctx := context.Background()
-// 			sched, err := scheduler.New()
-// 			if err != nil {
-// 				t.Fatalf("failed to create scheduler: %v", err)
-// 			}
+func TestNew(t *testing.T) {
+	s, err := New()
+	require.NoError(t, err)
+	require.NotNil(t, s)
+	require.NotNil(t, s.Cron)
+	require.NotNil(t, s.WG)
+}
 
-// 			mock := &mockService{err: tt.serviceErr}
-// 			ch := channels.New()
-// 			chanList := []*channels.Channels{ch}
-// 			services := []scheduler.SchedulableService{mock}
+func TestRunImmediateJob_TableDriven(t *testing.T) {
+	tests := []struct {
+		name            string
+		setupServices   func() []*fakeService
+		expectCallCount int
+	}{
+		{
+			name:            "no services",
+			setupServices:   func() []*fakeService { return []*fakeService{} },
+			expectCallCount: 0,
+		},
+		{
+			name: "multiple services succeed",
+			setupServices: func() []*fakeService {
+				mu := &sync.Mutex{}
+				return []*fakeService{
+					{name: "s0", mu: mu},
+					{name: "s1", mu: mu},
+					{name: "s2", mu: mu},
+				}
+			},
+			expectCallCount: 3,
+		},
+		{
+			name: "one service errors but others run",
+			setupServices: func() []*fakeService {
+				mu := &sync.Mutex{}
+				return []*fakeService{
+					{name: "good1", mu: mu},
+					{name: "bad", mu: mu, returnErr: true},
+					{name: "good2", mu: mu},
+				}
+			},
+			expectCallCount: 3,
+		},
+	}
 
-// 			sched.RunImmediateJob(ctx, nil, chanList, services)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Create services fresh for each subtest
+			fakeServices := tt.setupServices()
+			services := make([]SchedulableService, len(fakeServices))
+			for i := range fakeServices {
+				services[i] = fakeServices[i]
+			}
 
-// 			if !mock.called {
-// 				t.Errorf("expected service RunBatchJob to be called")
-// 			}
+			// prepare channels list matching services
+			chanList := make([]*channels.Channels, len(services))
+			for i := range chanList {
+				chanList[i] = &channels.Channels{DataRequest: make(chan models.DataRequest, 1), WG: &sync.WaitGroup{}}
+			}
 
-// 			// Ensure WaitGroup completes
-// 			doneCh := make(chan struct{})
-// 			go func() {
-// 				ch.WG.Wait()
-// 				close(doneCh)
-// 			}()
+			s := &Scheduler{Cron: gocron.NewScheduler(time.UTC), WG: &sync.WaitGroup{}}
+			// RunImmediateJob should not panic and should complete (WGs handled by services)
+			s.RunImmediateJob(context.Background(), nil, chanList, services)
 
-// 			select {
-// 			case <-doneCh:
-// 				// ok
-// 			case <-time.After(1 * time.Second):
-// 				t.Errorf("WaitGroup did not complete in time")
-// 			}
-// 		})
-// 	}
-// }
+			// Assert invocation counts for each service
+			totalCalls := 0
+			for _, fs := range fakeServices {
+				totalCalls += fs.callCount
+			}
+			assert.Equal(t, tt.expectCallCount, totalCalls)
+		})
+	}
+}
 
-// func TestScheduler_StartJob(t *testing.T) {
-// 	ctx := context.Background()
-// 	sched, err := scheduler.New()
-// 	if err != nil {
-// 		t.Fatalf("failed to create scheduler: %v", err)
-// 	}
+func TestStartJob_Basic(t *testing.T) {
+	s := &Scheduler{Cron: gocron.NewScheduler(time.UTC), WG: &sync.WaitGroup{}}
 
-// 	mock := &mockService{}
-// 	ch := channels.New()
-// 	chanList := []*channels.Channels{ch}
-// 	services := []scheduler.SchedulableService{mock}
+	// StartJob schedules the job and starts the scheduler asynchronously. Passing nil client
+	// and empty slices should be acceptable (job will reference nil but not execute immediately).
+	err := s.StartJob(context.Background(), nil, []*channels.Channels{}, []SchedulableService{})
+	require.NoError(t, err)
 
-// 	err = sched.StartJob(ctx, nil, chanList, services)
-// 	if err != nil {
-// 		t.Fatalf("StartJob returned error: %v", err)
-// 	}
-
-// 	// Wait briefly to let cron job (simulated) run once
-// 	time.Sleep(100 * time.Millisecond)
-
-// 	if !mock.called {
-// 		t.Errorf("expected service RunBatchJob to be called by cron job")
-// 	}
-
-// 	// Stop cron to avoid leaking goroutines
-// 	sched.Cron.Stop()
-// }
+	// Stop the scheduler to avoid goroutine leaks in test runs.
+	s.Cron.Stop()
+}
